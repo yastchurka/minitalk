@@ -3,8 +3,9 @@
 #include <signal.h>
 #include <stdlib.h> //exit()
 
-static int		bit_count = 7;
-static char		byte = 0;
+static char	string[1000000];
+
+int my_function(int zero_or_one);
 
 void	ft_get_pid(void)
 {
@@ -21,55 +22,65 @@ int	ft_power(int bit_count)
 {
 	int	score;
 	int	i;
+	int	p;
 
 	score = 1;
 	i = bit_count;
-	while (i >= 0)
+	p = 1;
+	while (p < i)
 	{
 		score *= 2;
-		i--;
+		p++;
 	}
-	printf("SCORE : %d\n", score);
 	return (score);
 }
-//  
+
 void	my_handler(int param)
 {
 	if (param == 12) /* corresponding to 0 bit */
-	{
-		printf("0 ");
-		printf("BIT COUNT: %d ", bit_count);
-		bit_count--;
-	}
+		my_function(0);
+	else
+		my_function(1);
+}
+
+void	ft_putchar(char c)
+{
+	write(1, &c, 1);
+}
+int	my_function(int zero_or_one)
+{
+	static int		bit_count = 0;
+	static char		byte = 0;
+	static char		string[1];
+	static int		i = 0;
+	
+	if (zero_or_one == 0)
+		bit_count++;
 	else
 	{
-		printf("BIT COUNT: %d\n", bit_count);
-		bit_count--;
-		byte = byte + ft_power(bit_count); /* 2 to the power bit_count */ 
-		printf("1 ");
+		bit_count++;
+		byte = byte + ft_power(bit_count);
 	}
-	printf("Byte: %c\n", byte);
-}
+	if (bit_count == 8)
+	{
+		string[0] = byte;
+		bit_count = 0;
+		byte = 0;
+		ft_putchar(string[0]);
+	}
+	return (0);
+} 
 
 int main(void)
 {
 	int	i;
 
 	i = 0;
-	ft_get_pid();	
-	while (i < 20)
-	{
-		signal(SIGUSR1, my_handler);
-		signal(SIGUSR2, my_handler);
-		sleep(1);
-		i++;
-	}
+	ft_get_pid();
+	signal(SIGUSR1, my_handler);
+	signal(SIGUSR2, my_handler);
+	while (1)
+		usleep(300);
+	//printf("%s", string);
 	return (0);
 }
-
-/* 
-	1. How to determine how long is the message
-	2. How to send more than one sign
-	3. How to send the lenght
-	4. How to convert binary to numbers?
- */
