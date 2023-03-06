@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include <signal.h>
 
-/* ---------- Atoi to convert user input PID to actual integer ---------- */
+/* Atoi to convert user input PID to actual integer */
 int ft_small_atoi(char* nb)
 {
     int i;
@@ -15,9 +15,7 @@ int ft_small_atoi(char* nb)
     return (number);
 }
 
-/* ---------- Convert a character to bits ---------- */
-/* ---------- And send to the process  ---------- */
-int convert_chars_to_bits(int pidi, char c)
+void	convert_chars_to_bits_and_send(int pidi, char c)
 {
     int	i;
 
@@ -29,12 +27,12 @@ int convert_chars_to_bits(int pidi, char c)
 		else
 			kill(pidi, SIGUSR2);
 		c = c >> 1;
-		usleep(300);
+		usleep(100);
 		i++;
 	}
 }
 
-int main(int argv, char* argc[])
+int	main(int argv, char* argc[])
 {
     int		pidi;
 	int		i;
@@ -43,12 +41,13 @@ int main(int argv, char* argc[])
 	i = 0;
 	string = argc[2];
 	pidi = ft_small_atoi(argc[1]);
+	if (pidi <= 0)
+		return (-1);
 	if (argv == 3)
 	{
 		while (string[i] != '\0')
 		{
-			convert_chars_to_bits(pidi, argc[2][i]);
-			usleep(400);
+			convert_chars_to_bits_and_send(pidi, argc[2][i]);
 			i++;
 		}
 	}
