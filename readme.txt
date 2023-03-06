@@ -13,28 +13,23 @@ needing to restart.
 • The communication between your client and your server has to be done only using
 UNIX signals.
 • You can only use these two signals: SIGUSR1 and SIGUSR2.
-
-You have to turn in a Makefile which will compile your source files. It must not
+• You have to turn in a Makefile which will compile your source files. It must not
 relink.
-• You can definitely use your libft.
-• You have to handle errors thoroughly. In no way your program should quit unex-
-pectedly (segmentation fault, bus error, double free, and so forth).
-• Your program mustn’t have memory leaks.
 • You can have one global variable per program (one for the client and one for
 the server), but you will have to justify their use.
-• In order to complete the mandatory part, you are allowed to use the following
+• you are allowed to use the following
 functions:
-◦ write
-◦ ft_printf and any equivalent YOU coded
-◦ signal
-◦ sigemptyset
-◦ sigaddset
-◦ sigaction
-◦ kill
-◦ getpid
-◦ malloc
-◦ free
-◦ pause
-◦ sleep
-◦ usleep
-◦ exit
+	◦ write
+	◦ ft_printf and any equivalent YOU coded
+	◦ signal
+	◦ sigemptyset
+	◦ sigaddset
+	◦ sigaction
+	◦ kill
+	◦ getpid
+	◦ malloc
+	◦ free
+	◦ pause
+	◦ sleep
+	◦ usleep
+	◦ exit
