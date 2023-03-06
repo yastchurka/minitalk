@@ -1,8 +1,5 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
+#include "minitalk.h"
 
-/* Atoi to convert user input PID to actual integer */
 int ft_small_atoi(char* nb)
 {
     int i;
@@ -27,7 +24,7 @@ void	convert_chars_to_bits_and_send(int pidi, char c)
 		else
 			kill(pidi, SIGUSR2);
 		c = c >> 1;
-		usleep(100);
+		usleep(WAIT_TIME1);
 		i++;
 	}
 }
@@ -47,7 +44,7 @@ int	main(int argv, char* argc[])
 	{
 		while (string[i] != '\0')
 		{
-			convert_chars_to_bits_and_send(pidi, argc[2][i]);
+			convert_chars_to_bits_and_send(pidi, string[i]);
 			i++;
 		}
 	}
