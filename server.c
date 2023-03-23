@@ -10,7 +10,7 @@ void	ft_get_pid(void)
 	printf("%d\n", pidi); // change to ft_printf
 }
 
-int	ft_power(int bit_count)
+/* int	ft_power(int bit_count)
 {
 	int	score;
 	int	i;
@@ -22,19 +22,19 @@ int	ft_power(int bit_count)
 	while (++p < i)
 		score *= 2;
 	return (score);
-}
+} */
 
 void receive_signal_bits_and_convert_to_bytes(int param)
 {
 	static int		bit_count = 0;
 	static char		byte = 0;
-
+	
 	if (param == SIGUSR2)
 		bit_count++;
 	else
 	{
+		byte = (1 << bit_count) | byte;
 		bit_count++;
-		byte = byte + ft_power(bit_count);
 	}
 	if (bit_count == 8)
 	{
