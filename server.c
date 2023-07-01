@@ -1,4 +1,7 @@
-#include "minitalk.h"
+#include <stdio.h>
+#include <unistd.h>
+#include <signal.h>
+#include <stdlib.h> //exit()
 
 void	ft_get_pid(void)
 {
@@ -10,7 +13,7 @@ void	ft_get_pid(void)
 	printf("%d\n", pidi); // change to ft_printf
 }
 
-/* int	ft_power(int bit_count)
+int	ft_power(int bit_count)
 {
 	int	score;
 	int	i;
@@ -22,19 +25,19 @@ void	ft_get_pid(void)
 	while (++p < i)
 		score *= 2;
 	return (score);
-} */
+}
 
 void receive_signal_bits_and_convert_to_bytes(int param)
 {
 	static int		bit_count = 0;
 	static char		byte = 0;
-	
-	if (param == SIGUSR2)
+
+	if (param == 12)
 		bit_count++;
 	else
 	{
-		byte = (1 << bit_count) | byte;
 		bit_count++;
+		byte = byte + ft_power(bit_count);
 	}
 	if (bit_count == 8)
 	{
@@ -47,9 +50,11 @@ void receive_signal_bits_and_convert_to_bytes(int param)
 int main(void)
 {
 	ft_get_pid();
-	signal(SIGUSR1, receive_signal_bits_and_convert_to_bytes);
-	signal(SIGUSR2, receive_signal_bits_and_convert_to_bytes);
+	
 	while (1)
-		usleep(WAIT_TIME2);
+	{
+		signal(SIGUSR1, receive_signal_bits_and_convert_to_bytes);
+		signal(SIGUSR2, receive_signal_bits_and_convert_to_bytes);
+	}
 	return (0);
 }

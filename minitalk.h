@@ -1,13 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hdorado- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/06/18 13:49:18 by hdorado-          #+#    #+#             */
+/*   Updated: 2023/06/18 13:49:23 by hdorado-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINITALK_H
 # define MINITALK_H
 
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
-//# include "libft/libft.h"
-//# include "ft_printf/ft_printf.h"
-
-# define WAIT_TIME1 100
-# define WAIT_TIME2 200
+# include <signal.h>
 
 #endif

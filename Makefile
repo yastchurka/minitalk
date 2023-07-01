@@ -1,48 +1,38 @@
-@CC = cc -Wall -Wextra -Werror
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
 
-all: comp_start server client
+# List of source files
+CLIENT_SRCS = client.c
+SERVER_SRCS = server.c
 
-#........COLORS
-COLOR	=	\033[1;36m
+# List of object files to build
+CLIENT_OBJS = $(CLIENT_SRCS:.c=.o)
+SERVER_OBJS = $(SERVER_SRCS:.c=.o)
 
-NO_COLOR	=	\033[0m
+# Build both the client and server executables
+all: $(NAME) client server
 
+# Build the client executable
+client: $(CLIENT_OBJS) $(NAME)
+	$(CC) $(CFLAGS) $(CLIENT_OBJS) -o $@
 
-#........MESSAGES
-COMP_START	=	echo "\n $(COLOR)Make: Starting the compilation...$(NO_COLOR)\n"
+# Build the server executable
+server: $(SERVER_OBJS) $(NAME) 
+	$(CC) $(CFLAGS) $(SERVER_OBJS) -o $@
 
-SERV_READY	=	echo "\n $(COLOR)-------- Server compiled! -------- $(NO_COLOR)\n"
+# Rule to build object files
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
-CLI_READY	=	echo "\n $(COLOR)-------- Client compiled! -------- $(NO_COLOR)\n"
-
-CLEANED		=	echo "\n $(COLOR)-------- Clean: Removed all the \".o\" files -------- $(NO_COLOR)\n"
-
-FCLEANED	=	echo "\n $(COLOR)-------- Fclean: Removed the executables -------- $(NO_COLOR)\n"
-
-
-#........RULES
-comp_start:
-	@$(COMP_START)
-
-server: server.o
-		@$(CC) server.o -o server
-		@$(SERV_READY)
-
-client: client.o
-		@$(CC) client.o -o client
-		@$(CLI_READY)
-
+# Remove object files and executables
 clean:
-		@rm -f server.o client.o
-		@$(CLEANED)
+	$(RM) $(CLIENT_OBJS) $(SERVER_OBJS)
 
+# Remove object files, executables, and the libft library
 fclean: clean
-		@rm -f server client
-		@$(FCLEANED)
+	$(RM) client server 
 
+# Rebuild the project from scratch
 re: fclean all
 
-#make -C ft_printf
-#make -C ft_printf
-#make clean -C ft_printf 
-#make fclean -C ft_printf
+.PHONY: all clean fclean re
