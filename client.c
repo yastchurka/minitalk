@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
+#include "minitalk.h"
 
 /* Atoi to convert user input PID to actual integer */
 int ft_small_atoi(char* nb)

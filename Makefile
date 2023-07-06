@@ -1,38 +1,23 @@
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC = cc -Wall -Wextra -Werror
 
-# List of source files
-CLIENT_SRCS = client.c
-SERVER_SRCS = server.c
+all: server client
 
-# List of object files to build
-CLIENT_OBJS = $(CLIENT_SRCS:.c=.o)
-SERVER_OBJS = $(SERVER_SRCS:.c=.o)
+server: server.o
+		make -C ft_printf
+		$(CC) server.o ft_printf/libftprintf.a -o server
 
-# Build both the client and server executables
-all: $(NAME) client server
+client: client.o
+		make -C ft_printf
+		$(CC) client.o ft_printf/libftprintf.a -o client
 
-# Build the client executable
-client: $(CLIENT_OBJS) $(NAME)
-	$(CC) $(CFLAGS) $(CLIENT_OBJS) -o $@
-
-# Build the server executable
-server: $(SERVER_OBJS) $(NAME) 
-	$(CC) $(CFLAGS) $(SERVER_OBJS) -o $@
-
-# Rule to build object files
-%.o: %.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-# Remove object files and executables
 clean:
-	$(RM) $(CLIENT_OBJS) $(SERVER_OBJS)
+		make clean -C ft_printf 
+		rm -f server.o client.o
 
-# Remove object files, executables, and the libft library
 fclean: clean
-	$(RM) client server 
+		make fclean -C ft_printf 
+		rm -f server client
 
-# Rebuild the project from scratch
 re: fclean all
 
 .PHONY: all clean fclean re

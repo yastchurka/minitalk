@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <unistd.h>
-#include <signal.h>
-#include <stdlib.h> //exit()
+# include "minitalk.h"
 
 void	ft_get_pid(void)
 {
@@ -10,7 +7,7 @@ void	ft_get_pid(void)
 	pidi = getpid();
 	if (pidi == -1 || pidi == 0)
 		return ;
-	printf("%d\n", pidi); // change to ft_printf
+	ft_printf("%d\n", pidi);
 }
 
 int	ft_power(int bit_count)
