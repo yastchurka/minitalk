@@ -11,6 +11,6 @@ To achieve that I had to solve several problems:
 
 Unfortuantely allocating the bytes in the array turend out to be too complex.
 Passing pointers and addresses between the functions and limitations of 
-void function of sig_handler function was above my limitations.
+void function of sig_handler function were above my limitations.
 Maybe I'll come back to solving this issue in the future or I'll leave it 
 as it is with intention to track my progress.
